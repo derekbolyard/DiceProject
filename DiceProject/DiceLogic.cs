@@ -22,17 +22,18 @@ namespace DiceProject
 
 
         static Random numberGen = new Random();
-        public static List<int> Rolls = new List<int>();
+        //public static List<int> Rolls = new List<int>();
 
         public static List<int> RollDie()
         {
+            List<int> Rolls = new List<int>();
             Rolls.Add(numberGen.Next(1, 7));
             return Rolls;
         }
 
         public static List<int> RollDie(int number)
         {
-
+            List<int> Rolls = new List<int>();
             for (var i = 0; i < number; i++)
             {
                 Rolls.Add(numberGen.Next(1, 7));
@@ -41,15 +42,15 @@ namespace DiceProject
             return Rolls;
         }
 
-        public static void PrintRolls()
-        {
-            int i = 1;
-            foreach (var roll in Rolls)
-            {
-                Console.WriteLine($"Roll #{ i }: { roll }");
-                i++;
-            }
-        }
+        //public static void PrintRolls()
+        //{
+        //    int i = 1;
+        //    foreach (var roll in Rolls)
+        //    {
+        //        Console.WriteLine($"Roll #{ i }: { roll }");
+        //        i++;
+        //    }
+        //}
         public static void PrintRolls(List<int> rolls)
         {
             int i = 1;
@@ -261,38 +262,36 @@ namespace DiceProject
             if (Pair(rolls) == true)
                 return "Pair";
             if (TwoPair(rolls) == true)
-                return "Two pair.";
+                return "Two Pair";
             if (ThreeOfAKind(rolls) == true)
-                return "Three of a Kind.";
+                return "Three of a Kind";
             if (FiveHighStraight(rolls) == true)
                 return "Five High Straight";
             if (SixHighStraight(rolls) == true)
                 return "Six High Straight";
             if (FullHouse(rolls) == true)
-                return "Full House!";
+                return "Full House";
             if (FourOfAKind(rolls) == true)
-                return "Four of a Kind!!";
+                return "Four of a Kind";
             if (FiveOfAKind(rolls) == true)
-                return "Five of a Kind!!!";
+                return "Five of a Kind";
             else
                 return "nothing";
         }
 
-        public static Player FindWinner (Player firstPlayer, Player secondPlayer)
+        public static string FindWinner(Player firstPlayer, Player secondPlayer)
         {
             if (HandValue(firstPlayer.BestHand) > HandValue(secondPlayer.BestHand))
-                return firstPlayer;
+                return firstPlayer.PlayerName;
             else if (HandValue(firstPlayer.BestHand) < HandValue(secondPlayer.BestHand))
-                return secondPlayer;
+                return secondPlayer.PlayerName;
             else
             {
-                Player draw = new Player();
-                draw.BestHand = "Draw";
-                return draw;
+                return "draw";
             }
         }
 
-        public static int HandValue (string hand)
+        public static int HandValue(string hand)
         {
             if (hand == "nothing")
                 return 1;
@@ -319,6 +318,8 @@ namespace DiceProject
             }
             
         }
+
+
 
 
     }
