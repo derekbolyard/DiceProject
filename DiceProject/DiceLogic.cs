@@ -1,56 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiceProject
 {
     public class DiceLogic
     {
-        private static bool hasPair { get; set; }
-        public static bool hasThreeOfAKind { get; set; }
-
-        static bool pair { get; set; } = false;
-        static bool twoPair { get; set; } = false;
-        static bool threeOfAKind { get; set; } = false;
-        static bool fiveHighStraight { get; set; } = false;
-        static bool sixHighStraight { get; set; } = false;
-        static bool fullHouse { get; set; } = false;
-        static bool fourOfAKind { get; set; } = false;
-        static bool fiveOfAKind { get; set; } = false;
+        public static bool HasThreeOfAKind { get; set; }
 
 
-        static Random numberGen = new Random();
-        //public static List<int> Rolls = new List<int>();
+        static readonly Random NumberGen = new Random();
+ 
 
         public static List<int> RollDie()
         {
-            List<int> Rolls = new List<int>();
-            Rolls.Add(numberGen.Next(1, 7));
-            return Rolls;
+            List<int> rolls = new List<int>();
+            rolls.Add(NumberGen.Next(1, 7));
+            return rolls;
         }
 
         public static List<int> RollDie(int number)
         {
-            List<int> Rolls = new List<int>();
+            List<int> rolls = new List<int>();
             for (var i = 0; i < number; i++)
             {
-                Rolls.Add(numberGen.Next(1, 7));
+                rolls.Add(NumberGen.Next(1, 7));
             }
-            Rolls.Sort();
-            return Rolls;
+            rolls.Sort();
+            return rolls;
         }
 
-        //public static void PrintRolls()
-        //{
-        //    int i = 1;
-        //    foreach (var roll in Rolls)
-        //    {
-        //        Console.WriteLine($"Roll #{ i }: { roll }");
-        //        i++;
-        //    }
-        //}
+
         public static void PrintRolls(List<int> rolls)
         {
             int i = 1;
@@ -77,9 +57,8 @@ namespace DiceProject
             var isFiveOfAKind = groupedRolls.Where(x => x.Count() == 5)
                 .ToList();
 
-            if (isFiveOfAKind.Count() == 1)
+            if (isFiveOfAKind.Count == 1)
             {
-                fiveOfAKind = true;
                 return true;
             }
             return false;
@@ -93,7 +72,6 @@ namespace DiceProject
 
             if (isFourOfAKind.Count() == 1)
             {
-                fourOfAKind = true;
                 return true;
             }
             return false;
@@ -110,7 +88,6 @@ namespace DiceProject
 
             if (isThreeOfAKind.Count() == 1 && isPair.Count() == 0)
             {
-                threeOfAKind = true;
                 return true;
             }
             return false;
@@ -128,7 +105,6 @@ namespace DiceProject
 
             if (isPair.Count == 1 && isThreeOfAKind.Count == 0)
             {
-                pair = true;
                 return true;
             }
             return false;
@@ -143,7 +119,6 @@ namespace DiceProject
 
             if (isPair.Count == 2)
             {
-                twoPair = true;
                 return true;
             }
             return false;
@@ -161,7 +136,6 @@ namespace DiceProject
 
             if (isPair.Count == 1 && isThreeOfAKind.Count == 1)
             {
-                fullHouse = true;
                 return true;
             }
             return false;
@@ -177,13 +151,11 @@ namespace DiceProject
                 isStraight = true;
             }
 
-            if (isStraight == true && containsASix(rolls) == false)
+            if (isStraight && ContainsASix(rolls) == false)
             {
-                fiveHighStraight = true;
                 return true;
             }
-            else
-                return false;
+            return false;
         }
 
         public static bool SixHighStraight(List<int> rolls)
@@ -196,26 +168,14 @@ namespace DiceProject
                 isStraight = true;
             }
 
-            if (isStraight == true && containsAOne(rolls) == false)
+            if (isStraight && ContainsAOne(rolls) == false)
             {
-                sixHighStraight = true;
                 return true;
-            }
-            else
-                return false;
-        }
-
-        private static bool containsAFive(List<int> rolls)
-        {
-            foreach (var number in rolls)
-            {
-                if (number == 5)
-                    return true;
             }
             return false;
         }
 
-        private static bool containsASix(List<int> rolls)
+        private static bool ContainsASix(List<int> rolls)
         {
             foreach (var number in rolls)
             {
@@ -225,7 +185,7 @@ namespace DiceProject
             return false;
         }
 
-        private static bool containsAOne(List<int> rolls)
+        private static bool ContainsAOne(List<int> rolls)
         {
             foreach (var number in rolls)
             {
@@ -237,86 +197,100 @@ namespace DiceProject
 
         public static string PrintBestHand(List<int> rolls)
         {
-            if (Pair(rolls) == true)
+            if (Pair(rolls))
+            {
                 return "You have a Pair.";
-            if (TwoPair(rolls) == true)
+            }
+
+            if (TwoPair(rolls))
+            {
                 return "You have Two pair.";
-            if (ThreeOfAKind(rolls) == true)
+            }
+
+            if (ThreeOfAKind(rolls))
+            {
                 return "You have Three of a Kind.";
-            if (FiveHighStraight(rolls) == true)
+            }
+
+            if (FiveHighStraight(rolls))
+            {
                 return "You have a Five High Straight";
-            if (SixHighStraight(rolls) == true)
+            }
+
+            if (SixHighStraight(rolls))
+            {
                 return "You have a Six High Straight";
-            if (FullHouse(rolls) == true)
+            }
+
+            if (FullHouse(rolls))
+            {
                 return "You have a Full House!";
-            if (FourOfAKind(rolls) == true)
+            }
+
+            if (FourOfAKind(rolls))
+            {
                 return "You have Four of a Kind!!";
-            if (FiveOfAKind(rolls) == true)
+            }
+
+            if (FiveOfAKind(rolls))
+            {
                 return "You have Five of a Kind!!!";
-            else
-                return "You have nothing";
+            }
+            return "You have nothing";
         }
 
         public static string CalculateBestHand(List<int> rolls)
         {
-            if (Pair(rolls) == true)
+            if (Pair(rolls))
                 return "Pair";
-            if (TwoPair(rolls) == true)
+            if (TwoPair(rolls))
                 return "Two Pair";
-            if (ThreeOfAKind(rolls) == true)
+            if (ThreeOfAKind(rolls))
                 return "Three of a Kind";
-            if (FiveHighStraight(rolls) == true)
+            if (FiveHighStraight(rolls))
                 return "Five High Straight";
-            if (SixHighStraight(rolls) == true)
+            if (SixHighStraight(rolls))
                 return "Six High Straight";
-            if (FullHouse(rolls) == true)
+            if (FullHouse(rolls))
                 return "Full House";
-            if (FourOfAKind(rolls) == true)
+            if (FourOfAKind(rolls))
                 return "Four of a Kind";
-            if (FiveOfAKind(rolls) == true)
+            if (FiveOfAKind(rolls))
                 return "Five of a Kind";
-            else
-                return "nothing";
+            return "nothing";
         }
 
         public static string FindWinner(Player firstPlayer, Player secondPlayer)
         {
             if (HandValue(firstPlayer.BestHand) > HandValue(secondPlayer.BestHand))
                 return firstPlayer.PlayerName;
-            else if (HandValue(firstPlayer.BestHand) < HandValue(secondPlayer.BestHand))
+            if (HandValue(firstPlayer.BestHand) < HandValue(secondPlayer.BestHand))
                 return secondPlayer.PlayerName;
-            else
-            {
-                return "draw";
-            }
+            return "draw";
         }
 
         public static int HandValue(string hand)
         {
             if (hand == "nothing")
                 return 1;
-            else if (hand == "Pair")
+            if (hand == "Pair")
                 return 2;
-            else if (hand == "Two Pair")
+            if (hand == "Two Pair")
                 return 3;
-            else if (hand == "Three of a Kind")
+            if (hand == "Three of a Kind")
                 return 4;
-            else if (hand == "Five High Straight")
+            if (hand == "Five High Straight")
                 return 5;
-            else if (hand == "Six High Straight")
+            if (hand == "Six High Straight")
                 return 6;
-            else if (hand == "Full House")
+            if (hand == "Full House")
                 return 7;
-            else if (hand == "Four of a Kind")
+            if (hand == "Four of a Kind")
                 return 8;
-            else if (hand == "Five of a kind")
+            if (hand == "Five of a kind")
                 return 9;
-            else
-            {
-                Console.WriteLine("Couldn't calculate hand");
-                return 0;
-            }
-            
+            Console.WriteLine("Couldn't calculate hand");
+            return 0;
         }
 
 

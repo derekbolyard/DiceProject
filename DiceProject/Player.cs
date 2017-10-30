@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiceProject
 {
@@ -15,7 +12,7 @@ namespace DiceProject
 
         public Player(string playerName) : this()
         {
-            this.playerName = playerName;
+            _playerName = playerName;
         }
 
         public List<int> Rolls { get; set; }
@@ -23,20 +20,20 @@ namespace DiceProject
         public string BestHand { get; set; }
 
         public string ValidationMessage { get; private set; }
-        public bool isNumbersAndLetters { get; set; }
-        private string playerName;
+        public bool IsNumbersAndLetters { get; set; }
+        private string _playerName;
 
         public string PlayerName
         {
-            get { return playerName; }
+            get { return _playerName; }
             set
             {
-                isNumbersAndLetters = true;
+                IsNumbersAndLetters = true;
                 for (int i = 0; i < value.Length; i++)
                 {
                     if (!(char.IsLetter(value[i])) && (!(char.IsNumber(value[i]))))
                     {
-                        isNumbersAndLetters = false;
+                        IsNumbersAndLetters = false;
                     }
 
                 }
@@ -52,14 +49,14 @@ namespace DiceProject
                 {
                     ValidationMessage = "Name cannot be longer than 12 characters.";
                 }
-                else if (isNumbersAndLetters == false)
+                else if (IsNumbersAndLetters == false)
                 {
                     ValidationMessage = "Name can only contain letters and numbers.";
                 }
 
                 else
                 {
-                    playerName = value;
+                    _playerName = value;
                 }
 
             }
@@ -69,24 +66,24 @@ namespace DiceProject
         {
             var rolls = DiceLogic.RollDie(5);
             StoreRolls(rolls);
-            this.BestHand = DiceLogic.CalculateBestHand(this.Rolls);
+            BestHand = DiceLogic.CalculateBestHand(Rolls);
         }
 
         public void StoreRolls(List<int> rolls)
         {
-            this.Rolls = rolls;
+            Rolls = rolls;
         }
 
         public void GetPlayerName()
         {
             
 
-            while (this.PlayerName == null)
+            while (PlayerName == null)
             {
                 ValidationMessage = string.Empty;
                 Console.WriteLine("What is your name, friend?");
                 PlayerName = Console.ReadLine();
-                Console.WriteLine(this.ValidationMessage);
+                Console.WriteLine(ValidationMessage);
 
 
             }
@@ -95,12 +92,12 @@ namespace DiceProject
 
         public void GreetPlayer()
         {
-            Console.WriteLine($"Hello, { this.PlayerName }");
+            Console.WriteLine($"Hello, { PlayerName }");
         }
 
         public void GetBestHand()
         {
-            this.BestHand = DiceLogic.CalculateBestHand(this.Rolls);
+            BestHand = DiceLogic.CalculateBestHand(Rolls);
         }
     }
 
