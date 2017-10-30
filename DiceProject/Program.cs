@@ -15,6 +15,7 @@ namespace DiceProject
             
             Player player = new Player();
             player.PlayerName = "Derek";
+            
             player.RollDice();
             DiceLogic.PrintRolls(player.Rolls);
             Console.WriteLine(player.BestHand);

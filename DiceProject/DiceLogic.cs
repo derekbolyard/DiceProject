@@ -22,7 +22,6 @@ namespace DiceProject
 
 
         static Random numberGen = new Random();
-        //public static List<int> Rolls = new List<int>();
 
         public static List<int> RollDie()
         {
@@ -42,15 +41,6 @@ namespace DiceProject
             return Rolls;
         }
 
-        //public static void PrintRolls()
-        //{
-        //    int i = 1;
-        //    foreach (var roll in Rolls)
-        //    {
-        //        Console.WriteLine($"Roll #{ i }: { roll }");
-        //        i++;
-        //    }
-        //}
         public static void PrintRolls(List<int> rolls)
         {
             int i = 1;
